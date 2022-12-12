@@ -1,0 +1,15 @@
+#screen dimension
+WIDTH = 800
+HEIGHT = 800
+
+COLS = 5
+ROWS = 5
+
+SQSIZE = WIDTH // COLS
+LINE_WIDTH = 15
+
+OFFSET = 50
+
+#COLORS
+BG_COLOR = (28, 170, 156)
+LINE_COLOR = (23, 145, 135)
