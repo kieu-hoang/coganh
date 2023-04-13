@@ -1,4 +1,5 @@
 import pygame
+import time
 from const import *
 from board import Board
 from dragger import Dragger
@@ -7,14 +8,24 @@ from move import Move
 from AI import *
 
 class Game:
-    def __init__(self):
+    def __init__(self, level=1):
         self.next_player = 'blue'
         self.hovered_sqr = None
         self.board = Board()
         self.dragger = Dragger()
-        self.ai = AI()
-        self.running = True
+        self.ai = AI(level)
+        self.running = False
+        self.paused = False
         self.gamemode = 'ai'
+        self.winner = 'green'
+        self.p1Name = "Player 1"
+        self.p2Name = "Player 2"
+        self.startTime = time.time()
+        self.time1 = 360
+        self.time2 = 360
+
+        self.storedTime1 = 0
+        self.storedTime2 = 0
         
     def show_lines(self, surface):
         #vertical line
@@ -72,9 +83,15 @@ class Game:
         else:
             self.gamemode = 'pvp'  
     def isover(self):
+        self.winner = self.board.final_state()
         return self.board.final_state() != 'green'
     def make_move(self, move: Move):
         initial = move.initial 
         piece = self.board.squares[initial.row][initial.col].piece
         self.board.move(piece, move)
+        if self.next_player == "blue":
+            self.storedTime1 += (time.time() - self.startTime)
+        else:
+            self.storedTime2 += (time.time() - self.startTime)
+        self.startTime = time.time()
         self.next_turn()            
