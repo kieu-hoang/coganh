@@ -1,6 +1,6 @@
 #screen dimension
-WIDTH = 800
-HEIGHT = 800
+WIDTH = 750
+HEIGHT = 750
 
 COLS = 5
 ROWS = 5
